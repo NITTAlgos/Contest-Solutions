@@ -1,6 +1,6 @@
 /**
 	Contest: Educational Codeforces Round 45 
-	Topics: #Constructive #Graphs
+	Topics: #Implementation
 	Problem: http://codeforces.com/contest/990/problem/C
 	Author: Sai Hemanth B
 **/

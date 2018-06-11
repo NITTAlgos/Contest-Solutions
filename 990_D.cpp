@@ -1,7 +1,7 @@
 /**
 	Contest: Educational Codeforces Round 45 
-	Topics: #Greedy
-	Problem: http://codeforces.com/contest/990/problem/B
+	Topics: #Constructive #Greedy
+	Problem: http://codeforces.com/contest/990/problem/D
 	Author: Sai Hemanth B
 **/
 
