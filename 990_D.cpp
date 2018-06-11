@@ -52,35 +52,40 @@ using namespace std;
 ll i,j,k;
 
 int main() {
-	ll n,k;
-	cin>>n>>k;
-	vll v(n);
-	fo(i,0,n) cin>>v[i];
-	vector<ll> v2;
-	sort(all(v));
-	v2.pb(v[0]);
-	ll last = v[0];
-	fo(i,1,n) {
-		if(v[i] != last) {
-			v2.pb(v[i]);
-		}
-		last = v[i];
+	ll n,a,b;
+	cin>>n>>a>>b;
+	if(a!=1 && b!=1) {
+		cout<<"NO"<<endl;
+		return 0;
 	}
-	ll n2 = v2.size();
-	vector<bool> flag(n2,true);
-	fo(i,1,n2) {
-		if((v2[i-1] < v2[i]) && (v2[i] <= (v2[i-1]+k))) {
-			flag[i-1] = false;
-		}
+	ll n1 = (a==1)?b:a;
+	if(n1 > n) {
+		cout<<"NO"<<endl;
+		return 0;
 	}
-	ll j = 0;
-	ll count = 0;
+	ll edges = (n*(n-1))/2;
+	if(edges < ((n-a)+(n-b))) {
+		cout<<"NO"<<endl;
+		return 0;	
+	}
+	ll mat[n][n];
+	fo(i,0,n) fo(j,0,n) mat[i][j] = 0;
+	fo(i,0,n - n1) {
+		mat[i][i+1] = 1;
+		mat[i+1][i] = 1;
+	}
+	if(a==1) {
+		fo(i,0,n) {
+			fo(j,0,n) {
+				mat[i][j] = (mat[i][j] == 0)?1:0;
+			}
+		}
+		fo(i,0,n) mat[i][i] = 0;
+	}
+	cout<<"YES"<<endl;
 	fo(i,0,n) {
-		if(v[i] != v2[j]) j++;
-		if(flag[j]) {
-			count++;
-		}
+		fo(j,0,n) cout<<mat[i][j];
+		nl;
 	}
-	cout<<count<<endl;
 	return 0;
 }

@@ -1,9 +1,10 @@
 /**
 	Contest: Educational Codeforces Round 45 
-	Topics: #Greedy
-	Problem: http://codeforces.com/contest/990/problem/B
+	Topics: #Constructive #Graphs
+	Problem: http://codeforces.com/contest/990/problem/C
 	Author: Sai Hemanth B
 **/
+
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -52,33 +53,41 @@ using namespace std;
 ll i,j,k;
 
 int main() {
-	ll n,k;
-	cin>>n>>k;
-	vll v(n);
-	fo(i,0,n) cin>>v[i];
-	vector<ll> v2;
-	sort(all(v));
-	v2.pb(v[0]);
-	ll last = v[0];
-	fo(i,1,n) {
-		if(v[i] != last) {
-			v2.pb(v[i]);
-		}
-		last = v[i];
-	}
-	ll n2 = v2.size();
-	vector<bool> flag(n2,true);
-	fo(i,1,n2) {
-		if((v2[i-1] < v2[i]) && (v2[i] <= (v2[i-1]+k))) {
-			flag[i-1] = false;
-		}
-	}
-	ll j = 0;
-	ll count = 0;
+	ll n;
+	cin>>n;
+	map<ll,ll> mmap;
+	ll maxx = -INFLL;
 	fo(i,0,n) {
-		if(v[i] != v2[j]) j++;
-		if(flag[j]) {
-			count++;
+		string s;
+		cin>>s;
+		stack<char> st;
+		fo(j,0,s.length()) {
+			if(s[j] == '(') st.push(s[j]);
+			else {
+				if(st.size()>0 && st.top() == '(') {
+					st.pop();
+				}
+				else {
+					st.push(s[j]);
+				}
+			}
+		}
+		
+		ll in = 0;
+		fo(j,0,s.length()) {
+			if(s[j] == ')') in--;
+			else in++;
+		}
+		if(abs(in) != st.size()) continue;
+		if(mmap.find(in) == mmap.end()) mmap.insert(mp(in,1));
+		else mmap[in]++;
+		maxx = max(maxx,in);
+	}
+	ll count = 0;
+	if(mmap.find(0) != mmap.end()) count += (mmap[0]*(mmap[0]-1) + mmap[0]);
+	fo(i,1,maxx+1) {
+		if(mmap.find(i) != mmap.end() && mmap.find(-i) != mmap.end()) {
+			count += (mmap[i]*mmap[-i]);
 		}
 	}
 	cout<<count<<endl;
